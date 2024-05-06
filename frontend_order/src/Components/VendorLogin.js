@@ -21,11 +21,11 @@ const VendorLogin = ({ onLogin }) => {
       .then(data => {
         const { signature } = data;
         console.log(data)
-        localStorage.setItem('token', signature
-
-        );
-        // Redirect to another page upon successful login
-        nav('/vendorProfile'); // Redirect to the add food page
+        localStorage.setItem('token', signature );
+       
+        if(signature){
+          nav('/vendorProfile');
+        }
       })
       .catch(error => {
         console.error('Login failed:', error);

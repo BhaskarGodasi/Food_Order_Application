@@ -40,7 +40,7 @@ const nav = useNavigate()
      nav('/vendorlogin')
     })
     .catch(error => {
-      // Handle any signup errors here
+      
       console.error('Signup failed:', error);
       return error
      

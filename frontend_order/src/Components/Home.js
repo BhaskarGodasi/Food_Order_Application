@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import Container from 'react-bootstrap/Container';
 import carousel1 from '../Assests/Images/southern-living.jpg'
@@ -8,7 +8,7 @@ import carousel3 from '../Assests/Images/autumn-harvest-hero.jpg'
 import SearchComponent from './SearchComponent';
 
 function HomePage() {
-  
+  const token = localStorage.getItem('token');
   // Sample data for carousel items and cards
   const carouselItems = [
     { id: 1, title: "Welcome to Foodie's Paradise!", image: carousel1 },
@@ -29,6 +29,9 @@ function HomePage() {
   //   { id: 2, name: 'Spice Haven', image: 'restaurant2.jpg', link: '/restaurants/2' },
   //   { id: 3, name: 'Seafood Sensation', image: 'restaurant3.jpg', link: '/restaurants/3' },
   // ];
+  useEffect(()=>{
+
+  },[token])
 
   return (
     <div>
