@@ -2,7 +2,9 @@ import {  Request, Response ,NextFunction } from 'express';
 import { FindVendor } from './AdminController';
 import { CreateFoodInput, EditVendorInput, VendorLoginInput } from '../dto';
 import { GenerateSignature, ValidatePassword } from '../utility';
+
 import { Food } from '../models/Food';
+import cloudinary from '../services/Cloudinary';
 
 
 export const VendorLogin = async (req: Request,res: Response, next: NextFunction) => {
@@ -85,11 +87,35 @@ export const UpdateVendorCoverImage = async (req: Request,res: Response, next: N
 
        if(vendor !== null){
 
-            const files = req.files as [Express.Multer.File];
+//             const files = req.files as [Express.Multer.File];
+// console.log(files)
+//             const images = files.map((file: Express.Multer.File) => file.filename);
+            if (!req.file) {
+                return res.status(400).json({
+                  success: false,
+                  message: "No file uploaded"
+                });
+              }
+    
+            const coludimage=await cloudinary.uploader.upload(req.file.path, function (err, result) {
+                // Handle Cloudinary upload error
+                if (err) {
+                  console.log(err);
+                  return res.status(500).json({
+                    success: false,
+                    message: "Error uploading to Cloudinary"
+                  });
+                }
+            
+                // Send successful response
+                // return res.status(200).json({
+                //   success: true,
+                //   message: "Uploaded!",
+                //   data: result
+                // });
+              });
 
-            const images = files.map((file: Express.Multer.File) => file.filename);
-
-            vendor.coverImages.push(...images);
+            vendor.coverImages.push(coludimage.url);
 
             const saveResult = await vendor.save();
             
@@ -144,10 +170,36 @@ export const AddFood = async (req: Request, res: Response, next: NextFunction) =
 
        if(vendor !== null){
 
-            const files = req.files as [Express.Multer.File];
+        if (!req.file) {
+            return res.status(400).json({
+              success: false,
+              message: "No file uploaded"
+            });
+          }
 
-            const images = files.map((file: Express.Multer.File) => file.filename);
-            console.log(images,"hi hello")
+        const coludimage=await cloudinary.uploader.upload(req.file.path, function (err, result) {
+            // Handle Cloudinary upload error
+            if (err) {
+              console.log(err);
+              return res.status(500).json({
+                success: false,
+                message: "Error uploading to Cloudinary"
+              });
+            }
+        
+            // Send successful response
+            // return res.status(200).json({
+            //   success: true,
+            //   message: "Uploaded!",
+            //   data: result
+            // });
+          });
+
+        // const files = req.files as [Express.Multer.File];
+
+        // const images = files.map((file: Express.Multer.File) => file.filename);
+
+            console.log(coludimage.url,"hi hello")
             const food = await Food.create({
                 vendorId: vendor._id,
                 name: name,
@@ -157,7 +209,7 @@ export const AddFood = async (req: Request, res: Response, next: NextFunction) =
                 rating: 0,
                 readyTime: readyTime,
                 foodType: foodType,
-                images: images
+                images: coludimage.url
             })
             
             vendor.foods.push(food);

@@ -1,12 +1,28 @@
 .App {
   text-align: center;
 }
-
+/* .background-img{
+  background-image: url('../src/Assests/Images/background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+} */
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
-
+.cimg-1{
+  width:100vw;
+  height: 80vh;
+}
+.cc{
+  width: 80%;
+  height: 70%;
+  margin: auto;
+  border: 2px solid green;
+}
+.carousel-1{
+  display: flex;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

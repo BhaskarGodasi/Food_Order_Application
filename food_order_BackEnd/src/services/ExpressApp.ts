@@ -1,6 +1,6 @@
 import express , { Application } from 'express';
 import path from 'path';
-
+import cors from 'cors'
 import {AdminRoute, CoustmerRoute, ShoppingRoute, vendorRoute} from '../routes'
 
 
@@ -9,9 +9,9 @@ import {AdminRoute, CoustmerRoute, ShoppingRoute, vendorRoute} from '../routes'
 export default async(app: Application) => {
 
     app.use(express.json());
+    app.use(cors())
     app.use(express.urlencoded({ extended: true}))
     
-    app.use(express.json());
  
     const imagePath = path.join(__dirname,'../images');
     

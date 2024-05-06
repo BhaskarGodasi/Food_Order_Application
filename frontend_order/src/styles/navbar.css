@@ -1,0 +1,37 @@
+.navbar {
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+  }
+  
+  .logo img {
+    width: 100px;
+  }
+  
+  .navbar ul {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    border: 2px soild red;
+  }
+  
+  .navbar ul li {
+    margin-right: 1rem;
+  }
+  
+  .navbar ul li:last-child {
+    margin-right: 0;
+  }
+  
+  .navbar ul li a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .navbar ul li a:hover {
+    text-decoration: underline;
+  }
+  
